@@ -22,17 +22,17 @@ def compute_spectral_flux(signal, fs, window_size, hop_size, smooth=True):
             spectral_flux[i] = np.sum((spectrum - prev_spectrum) ** 2)
         prev_spectrum = spectrum
         time_vals[i] = start / fs  # Time in seconds
-        
+
 
     return spectral_flux, time_vals
 
 
 # Function to apply Butterworth low-pass filter
-def butter_lowpass_filter(data, cutoff, fs, order=4):
-    nyquist = 0.5 * fs
-    normal_cutoff = cutoff / nyquist
-    b, a = butter(order, normal_cutoff, btype='low', analog=False)
-    return filtfilt(b, a, data)
+# def butter_lowpass_filter(data, cutoff, fs, order=4):
+#     nyquist = 0.5 * fs
+#     normal_cutoff = cutoff / nyquist
+#     b, a = butter(order, normal_cutoff, btype='low', analog=False)
+#     return filtfilt(b, a, data)
 
 def create_dir(dir):
     if not os.path.exists(dir):
@@ -117,7 +117,15 @@ def create_samples(loaded_cat, output_path):
             hop_size = max(1, int(0.1 * fs))  # Ensure non-zero hop size
 
             spectral_flux, time_vals = compute_spectral_flux(csv_data, fs, window_size, hop_size)
-            onset_indices = find_peaks(spectral_flux, height=1e-16, distance=50)[0]
+            height = 0.1 * np.max(spectral_flux)
+
+            # Calculate dynamic distance between peaks based on a minimum time between onsets (e.g., 100 ms)
+            min_time_between_peaks = 0.1  # 100 ms
+            distance = int(min_time_between_peaks * fs)
+
+            # Ensure distance is at least 1
+            distance = max(1, distance)
+            onset_indices = find_peaks(spectral_flux, height=height, distance=distance)[0]
             onset_times = time_vals[onset_indices]
 
             if len(onset_times) > 0:
