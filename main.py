@@ -22,9 +22,7 @@ def compute_spectral_flux(signal, fs, window_size, hop_size, smooth=True):
             spectral_flux[i] = np.sum((spectrum - prev_spectrum) ** 2)
         prev_spectrum = spectrum
         time_vals[i] = start / fs  # Time in seconds
-
-    if smooth:
-        spectral_flux = gaussian_filter1d(spectral_flux, sigma=2)
+        
 
     return spectral_flux, time_vals
 
@@ -99,7 +97,6 @@ def create_samples(loaded_cat, output_path):
         create_dir(evid_dir)
         save_image_truth(csv_times, csv_data, line_time, output_image_path=evid_image_truth)
 
-
     for index, row in loaded_cat.iterrows():
         csv_times = np.array(row['np_time_rel(sec)'])
         csv_data = np.array(row['np_velocity(m/s)'])
@@ -109,6 +106,7 @@ def create_samples(loaded_cat, output_path):
         evid_image_truth = os.path.join(evid_dir, f'{evid}_TRUTH.png')
         create_dir(evid_dir)
         save_image_truth(csv_times, csv_data, line_time, output_image_path=evid_image_truth)
+
 
         # Ensure we have enough data points in csv_times
         if len(csv_times) > 1 and len(csv_data) > 1:
