@@ -3,8 +3,8 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fftpack import fft
-from scipy.signal import find_peaks, butter, filtfilt
-from scipy.ndimage import gaussian_filter1d
+from scipy.signal import find_peaks
+pd.set_option('display.max_columns', None)
 
 
 # Function to compute spectral flux
@@ -25,14 +25,6 @@ def compute_spectral_flux(signal, fs, window_size, hop_size, smooth=True):
 
 
     return spectral_flux, time_vals
-
-
-# Function to apply Butterworth low-pass filter
-# def butter_lowpass_filter(data, cutoff, fs, order=4):
-#     nyquist = 0.5 * fs
-#     normal_cutoff = cutoff / nyquist
-#     b, a = butter(order, normal_cutoff, btype='low', analog=False)
-#     return filtfilt(b, a, data)
 
 def create_dir(dir):
     if not os.path.exists(dir):
@@ -108,7 +100,7 @@ def create_samples(loaded_cat, output_path):
         save_image_truth(csv_times, csv_data, line_time, output_image_path=evid_image_truth)
 
 
-        # Ensure we have enough data points in csv_times
+        # Ensure we have enough unprocessed_data points in csv_times
         if len(csv_times) > 1 and len(csv_data) > 1:
             fs = 1 / (csv_times[1] - csv_times[0])
 
@@ -144,7 +136,7 @@ def create_samples(loaded_cat, output_path):
 
 
 saved_dir = r'output'
-loaded_cat = pd.read_hdf(r'C:\Users\User\PycharmProjects\NASA\lunar_training.h5', key='catalog_data')
+loaded_cat = pd.read_hdf(r'D:\nasa_hackaton\data\processed_data\lunar_training.h5', key='catalog_data')
 os.makedirs(saved_dir, exist_ok=True)
 print(loaded_cat.head(5))
 create_samples(loaded_cat, output_path=saved_dir)
