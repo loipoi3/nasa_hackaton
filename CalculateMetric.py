@@ -132,5 +132,3 @@ class Metrics:
         metrics_df = pd.DataFrame([metrics])
         metrics_df.to_csv(os.path.join(self.saved_dir, 'mars_metrics.csv'), index=False)
         return metrics_df
-df = pd.read_csv(r'C:\Users\User\PycharmProjects\NASA\mars_train\results.csv')
-c = Metrics(df, '.').calculate_metrics()

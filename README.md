@@ -59,20 +59,24 @@ The results are stored in a CSV file for each event.
    This is the median percentage of the signal duration where seismic activity was annotated in the dataset, relative to the total signal duration.
 
 4. **Median Percentage Difference**:
-
    This is the median difference between the "Median send signal percentage (Truth)" and "Median send signal percentage (Predicted)," indicating how the average transmitted signal length in the ground truth differs from the predicted one.
+
+5. **Median signal reduction**:
+   This is the median value of how much the length of the transmitted signal has been reduced compared to the total signal length
 
 ### Lunar Metrics:
 - Median Time Deviation: 352.68 sec
 - Median send signal percentage (Predicted): 54.56%
 - Median send signal percentage (Truth): 49.65%
 - Median percentage difference: -4.90%
+- Median signal reduction: 45.44187192204285 %
 
 ### Martian Metrics:
 - Median Time Deviation: 104.63 sec
 - Median send signal percentage (Predicted): 60.47%
 - Median send signal percentage (Truth): 63.37%
 - Median percentage difference: 2.91%
+- Median signal reduction: 39.531799052764626 %
 
 ## Usage
 ### Requirements
