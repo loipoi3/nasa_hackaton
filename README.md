@@ -9,11 +9,12 @@ The data consists of seismic records that include the event's file name, absolut
 # Seismic Signal Detection Method
 
 Our method is based on Spectral Flux.
+
 Spectral flux is a measure of how quickly the power spectrum of a signal changes, calculated by comparing the power spectrum of one frame with the power spectrum of the previous frame.
 Our method can be divided into these steps:
 
 ### 1. Signal Filtering
-For each event in the data (which contains seismic measurements), the signal first passes through a **bandpass filter** to remove unwanted frequencies. The frequency range used for filtering depends on the type of landscape:
+For each event in the data (which contains seismic measurements), the signal first passes through a **lowpass filter** to remove unwanted frequencies. The frequency range used for filtering depends on the type of landscape:
 - For the **Moon**, a specific frequency range is applied.
 - For **Mars**, a different frequency range is used.
 
